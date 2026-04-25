@@ -1,0 +1,7 @@
+# Secret files — never push these
+.env
+credentials.json
+venv/
+job_automation.log
+__pycache__/
+*.pyc

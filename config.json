@@ -1,0 +1,42 @@
+{
+    "roles": [
+        "software engineer intern",
+        "software developer intern",
+        "backend developer intern",
+        "full stack developer intern",
+        "fullstack developer intern",
+        "junior software engineer ",
+        "junior software developer"
+    ], 
+    "keywords": [
+        "python",
+        "django",
+        "javascript",
+        "react",
+        "node",
+        "express",
+        "internship",
+        "intern",
+        "junior",
+        "fresher",
+        "api",
+        "sql",
+        "git"
+    ],
+    "exclude_keywords": [
+        "senior",
+        "sr.",
+        "staff",
+        "lead",
+        "principal",
+        "manager",
+        "director",
+        "10+ years",
+        "8+ years",
+        "5+ years",
+        "3+ years"
+    ],
+    "location": "remote",
+    "date_posted": "week",
+    "num_pages": 2
+}
