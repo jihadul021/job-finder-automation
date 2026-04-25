@@ -1,7 +1,12 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import logging
+import json
+import os
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def get_sheet():
     """
@@ -15,11 +20,10 @@ def get_sheet():
     creds = Credentials.from_service_account_file("credentials.json", scopes=scopes)
     client = gspread.authorize(creds)
 
-    import json
-    config = json.load(open("config.json"))
-    sheet = client.open_by_key(config["sheet_id"])
+    # Load sheet_id directly from .env
+    sheet_id = os.getenv("SHEET_ID")
+    sheet = client.open_by_key(sheet_id)
 
-    # Use first worksheet
     return sheet.sheet1
 
 
@@ -36,7 +40,6 @@ def setup_headers(worksheet):
     first_row = worksheet.row_values(1)
     if not first_row:
         worksheet.append_row(headers)
-        # Make headers bold
         worksheet.format("A1:L1", {
             "textFormat": {"bold": True},
             "backgroundColor": {"red": 0.2, "green": 0.2, "blue": 0.8}
@@ -70,7 +73,6 @@ def save_to_sheets(jobs):
     new_jobs_added = 0
 
     for job in jobs:
-        # Check if job already exists in sheet
         key = f"{job.get('title','').lower()}|{job.get('company','').lower()}"
         if key in existing_jobs:
             continue
@@ -85,8 +87,8 @@ def save_to_sheets(jobs):
             job.get("salary_max", "N/A"),
             job.get("posted_date", "N/A"),
             job.get("link", "N/A"),
-            "Not Applied",        # Default status — you update this manually
-            "",                   # Notes column — you fill this in
+            "Not Applied",
+            "",
             datetime.now().strftime("%Y-%m-%d %H:%M")
         ]
 
